@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+    postgres:
+        image: postgres
+        restart: always
+        environment:
+            POSTGRES_PASSWORD: 123456
+            POSTGRES_USER: usr_db
+        volumes:
+            - postgres-volume:/var/lib/postgresql/data
+    
+    pgadmin:
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: admin@pgadmin.com
+            PGADMIN_DEFAULT_PASSWORD: 123456
+            PGADMIN_LISTEN_PORT: 80
+        ports:
+            - 15432:80
+        volumes:
+            - pgadmin-volume:/var/lib/pgadmin
+        depends_on:
+            - postgres
+volumes:
+    postgres-volume:
+    pgadmin-volume:
+
