@@ -32,7 +32,6 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 		}
 
 		convertedQuantity, err := strconv.Atoi(quantity)
-
 		if err != nil {
 			log.Println("error to convert quantity.", err)
 		}
@@ -40,4 +39,10 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 		models.Add(name, description, convertedPrice, convertedQuantity)
 		http.Redirect(w, r, "/", 301)
 	}
+}
+
+func Delete(w http.ResponseWriter, r *http.Request) {
+	id := r.URL.Query().Get("id")
+	models.Delete(id)
+	http.Redirect(w, r, "/", 301)
 }
